@@ -1,0 +1,33 @@
+  private void initChildView(List<DefaultListBean.DataBean.ArtistlistBean> artistlist) {
+        ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.leftMargin = UiUtils.dip2px(context, 5);
+        lp.bottomMargin = UiUtils.dip2px(context, 7);
+        lp.topMargin = UiUtils.dip2px(context, 7);
+        lp.rightMargin = UiUtils.dip2px(context, 5);
+
+        if (artistlist != null && artistlist.size() > 0) {
+            if (!isAddView) {//½ûÖ¹Ë¢ÐÂ
+                for (int i = 0; i < artistlist.size(); i++) {
+                    TextView tv = new TextView(context);
+                    tv.setTypeface(TextLoader.getTypeface(context));
+                    tv.setText(artistlist.get(i).getArtistName());
+                    int id = artistlist.get(i).getId();
+                    tv.setTextSize(13);
+                    tv.setTextColor(getResources().getColor(R.color.textcolor));
+                    tv.setBackground(getResources().getDrawable(R.drawable.searchback));
+                    yidianpai_grid.addView(tv, lp);
+                    tv.setOnClickListener(new View.OnClickListener() {//ÉèÖÃ¼àÌý
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(context, WholePmopListArtActivity.class);
+                            intent.putExtra("id", id);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                            context.startActivity(intent);
+                        }
+                    });
+                }
+                isAddView=true;
+            }
+        }
+    }
